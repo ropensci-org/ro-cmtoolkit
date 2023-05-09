@@ -7,11 +7,10 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 ## In a nutshell...
 - Issues are posts (using a [Issue template](.github/ISSUE_TEMPLATE/schedule-post.md))
   - YAML has time to post, alt text, any media is embedded etc.
-- Mastodon credentials are stored as GitHub secrets
 - [GitHub actions](.github/workflows/schedule_posts.yaml) run `schedule_posts.R` script
-  - on CRON Job
-  - manually (`workflow_dispatch` event trigger)
-- Script 
+  - on CRON Job or manually (`workflow_dispatch` event trigger)
+  - Mastodon credentials are stored as GitHub secrets
+- [Script](schedule_posts.R)
   - Fetches open issues, omits those labeled 'draft'
   - Issues are posted to Mastodon if the post hour is within or earlier than time of the run
   - Posted issues are then closed
@@ -25,7 +24,9 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
   - We schedule specific hours we usually use and use the manual run the rest of the time
 - GitHub actions run in UTC
 
-## Issue template
+## In detail...
+
+### Issue template
 - See [example template](.github/ISSUE_TEMPLATE/schedule-post.md)
 - 'Draft' Label is automatically applied 
   - needs to be removed for an issue to be posted
@@ -35,7 +36,7 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 - Include up to one image in the body directly (embedded) (`alt` is required if media present)
 - Emojis can be code or Unicode (i.e. :tada: or `:tada:`)
 
-## GitHub Actions
+### GitHub Actions
 - See [example action](.github/workflows/schedule_posts.yaml)
 - Run by `workflow_dispatch` or on `scheduled`
 - Uses credentials stored as GitHub Secrets - `RTOOT_DEFAULT_TOKEN`
@@ -43,7 +44,7 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 - Caches packages for quick runs (using `renv::restore()`)
 - Runs `schedule_posts.R`
 
-## Posting to Mastodon
+### Posting to Mastodon
 - See [example R script](schedule_posts.R)
 - Grabs issues from GitHub
 - Extracts and cleans metadata from YAML (see functions in `details.R`)
@@ -59,7 +60,7 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 still means that the GitHub action minutes are being used up. It may be worth
 exploring the `scheduled_at` argument of `rtoot::post_toot()` instead.
 
-## Setting up Authentication
+### Setting up Authentication
 
 Credentials are stored as a GitHub secret for Actions
 
@@ -80,7 +81,7 @@ Edit/Add the "RTOOT_TOKEN_ROPENSCI" secret and add the
 part of the copied text (i.e. omit the `RTOOT_DEFAULT_TOKEN=` bit and quotes)
 
 
-## Troubleshooting
+### Troubleshooting
 - If Actions fail for package dependency reasons after runs with no problems
   - Try deleting [cache](https://github.com/rosadmin/scheduled_socials/actions/caches) 
     and restarting failed run
