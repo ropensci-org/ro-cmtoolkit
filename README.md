@@ -6,4 +6,4 @@ help out other communities as well.
 
 ## Tools
 
-- Scheduling Mastodon Posts with GitHub actions and rtoot (`scheduled_socials_example`)
+- [Scheduling Mastodon Posts with GitHub actions and rtoot (`scheduled_socials_example`)](https://github.com/ropensci-org/ro-cmtoolkit/tree/main/scheduled_socials_example#readme)
