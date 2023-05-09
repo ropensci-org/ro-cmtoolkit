@@ -1,14 +1,14 @@
 # Scheduling Mastodon posts - Example files
 
 This is an example of how to use GitHub Issues and Actions to schedule
-Mastodon posts. 
+Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/). 
 
 
 ## In a nutshell...
-- Issues are posts (use the [Issue template](https://github.com/ropensci-org/ro-cmtoolkit/blob/fbe0ab0480e649b4ec1fb213ddabd4668b40c776/scheduled_socials_example/.github/ISSUE_TEMPLATE/schedule-post.md) to setup)
+- Issues are posts (using a [Issue template](scheduled_socials_example/.github/ISSUE_TEMPLATE/schedule-post.md))
   - YAML has time to post, alt text, any media is embedded etc.
 - Mastodon credentials are stored as GitHub secrets
-- GitHub actions run `schedule_posts.R` script
+- [GitHub actions](scheduled_socials_example/.github/workflows/schedule_posts.yaml) run `schedule_posts.R` script
   - on CRON Job
   - manually (`workflow_dispatch` event trigger)
 - Script 
@@ -24,9 +24,9 @@ Mastodon posts.
 - Running the actions Hourly can use up a lot of run minutes. 
   - We schedule specific hours we usually use and use the manual run the rest of the time
 - GitHub actions run in UTC
-  
 
 ## Issue template
+- See [example template](scheduled_socials_example/.github/ISSUE_TEMPLATE/schedule-post.md)
 - 'Draft' Label is automatically applied 
   - needs to be removed for an issue to be posted
 - Require YAML for `time` and `tz`
@@ -34,6 +34,30 @@ Mastodon posts.
 - Use `~~~` to separate YAML from body (better formatting than `---`)
 - Include up to one image in the body directly (embedded) (`alt` is required if media present)
 - Emojis can be code or Unicode (i.e. :tada: or `:tada:`)
+
+## GitHub Actions
+- See [example action](scheduled_socials_example/.github/workflows/schedule_posts.yaml)
+- Run by `workflow_dispatch` or on `scheduled`
+- Uses credentials stored as GitHub Secrets - `RTOOT_DEFAULT_TOKEN`
+- Sets up R with renv
+- Caches packages for quick runs (using `renv::restore()`)
+- Runs `schedule_posts.R`
+
+## Posting to Mastodon
+- See [example R script](scheduled_socials_example/schedule_posts.R)
+- Grabs issues from GitHub
+- Extracts and cleans metadata from YAML (see functions in `details.R`)
+- Ignores `draft` issues
+- Ignores issues with a post date in the future
+- Downloads any media included (and enforces alt text)
+- Posts to Mastodon
+- Closes issue
+- If more than one issue, waits 5 min before posting the next\*
+
+
+\* This may not be the best way to do this, as waiting 5min with `Sys.sleep()`
+still means that the GitHub action minutes are being used up. It may be worth
+exploring the `scheduled_at` argument of `rtoot::post_toot()` instead.
 
 ## Setting up Authentication
 
