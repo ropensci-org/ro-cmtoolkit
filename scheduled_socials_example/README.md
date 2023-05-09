@@ -5,10 +5,10 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 
 
 ## In a nutshell...
-- Issues are posts (using a [Issue template](scheduled_socials_example/.github/ISSUE_TEMPLATE/schedule-post.md))
+- Issues are posts (using a [Issue template](.github/ISSUE_TEMPLATE/schedule-post.md))
   - YAML has time to post, alt text, any media is embedded etc.
 - Mastodon credentials are stored as GitHub secrets
-- [GitHub actions](scheduled_socials_example/.github/workflows/schedule_posts.yaml) run `schedule_posts.R` script
+- [GitHub actions](.github/workflows/schedule_posts.yaml) run `schedule_posts.R` script
   - on CRON Job
   - manually (`workflow_dispatch` event trigger)
 - Script 
@@ -26,7 +26,7 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 - GitHub actions run in UTC
 
 ## Issue template
-- See [example template](scheduled_socials_example/.github/ISSUE_TEMPLATE/schedule-post.md)
+- See [example template](.github/ISSUE_TEMPLATE/schedule-post.md)
 - 'Draft' Label is automatically applied 
   - needs to be removed for an issue to be posted
 - Require YAML for `time` and `tz`
@@ -36,7 +36,7 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 - Emojis can be code or Unicode (i.e. :tada: or `:tada:`)
 
 ## GitHub Actions
-- See [example action](scheduled_socials_example/.github/workflows/schedule_posts.yaml)
+- See [example action](.github/workflows/schedule_posts.yaml)
 - Run by `workflow_dispatch` or on `scheduled`
 - Uses credentials stored as GitHub Secrets - `RTOOT_DEFAULT_TOKEN`
 - Sets up R with renv
@@ -44,7 +44,7 @@ Mastodon posts via [rtoot](https://schochastics.github.io/rtoot/).
 - Runs `schedule_posts.R`
 
 ## Posting to Mastodon
-- See [example R script](scheduled_socials_example/schedule_posts.R)
+- See [example R script](schedule_posts.R)
 - Grabs issues from GitHub
 - Extracts and cleans metadata from YAML (see functions in `details.R`)
 - Ignores `draft` issues
