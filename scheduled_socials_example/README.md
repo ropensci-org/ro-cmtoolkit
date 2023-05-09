@@ -6,7 +6,7 @@ Mastodon posts.
 
 ## In a nutshell...
 - Issues are posts (use the [Issue template](https://github.com/ropensci-org/ro-cmtoolkit/blob/fbe0ab0480e649b4ec1fb213ddabd4668b40c776/scheduled_socials_example/.github/ISSUE_TEMPLATE/schedule-post.md) to setup)
-  - YAML has time to post, alt text, etc.
+  - YAML has time to post, alt text, any media is embedded etc.
 - Mastodon credentials are stored as GitHub secrets
 - GitHub actions run `schedule_posts.R` script
   - on CRON Job
