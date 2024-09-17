@@ -8,6 +8,7 @@ However, in a Review there are quite a few minor moving pieces and this workflow
 makes it quicker to find the files, review them, and perform some of the checks.
 
 ### A couple of points
+- This script lives locally in the blog repository (`ropensci/roweb3` for us)
 - We use `usethis::pr_XXXX()` to handle PRs
 - We use the interactive PR fetch so we don't have to know the PR number in advance
 - We use `gert::git_diff` to make a best guess of the blog post md file. 
