@@ -1,4 +1,6 @@
-## Example of an incident summary
+## Template of an incident summary
+
+_This template is for internal use._
 
 * _Description of the incident_: a short description about the incident.
 
